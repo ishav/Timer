@@ -35,7 +35,7 @@ class WorkerThread(Thread):
 
 	def run(self):
 		self.start_tid = int(time.time())
-		self.sparade_sekunder = 4289
+		self.sparade_sekunder = 0
 		self.timer_running = True
 		
 

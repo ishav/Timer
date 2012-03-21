@@ -6,8 +6,8 @@ from threading import Thread
 # Ger namn och verision att använda så att man inte måste ersättta på flera ställen vid en änding
 program = {"namn": "Timer","version": "1.0"}
 
-class WorkerThread(Thread):
-	"""Klass för att köra nedladdningarna i bakgrunden"""
+class tid_trad(Thread):
+	"""Tråden med räknaren"""
 	def __init__(self, parent):
 		"""Init Worker Thread Class."""
 		Thread.__init__(self)
@@ -49,7 +49,7 @@ class WorkerThread(Thread):
 
 			self.parent.tid_kvar.SetLabel(self.formatera_tid(tid_tagen))
 
-			time.sleep(1)
+			time.sleep(0.3)
 	
 	def starta(self):
 		self.timer_running = True
@@ -57,7 +57,8 @@ class WorkerThread(Thread):
 	
 	def pause(self):
 		self.timer_running = False
-		self.sparade_sekunder += int(time.time()) - self.worker.start_tid
+		self.sparade_sekunder += int(time.time()) - self.start_tid
+
 
 class MyFrame(wx.Frame):
 	def __init__(self, parent):
@@ -96,7 +97,7 @@ class MyFrame(wx.Frame):
 	def starta_timern(self, event):
 		# Förhindrar att flera trådar körs på samma gång
 		if not self.worker:
-				self.worker = WorkerThread(self)
+				self.worker = tid_trad(self)
 		
 		self.knapp.Bind(wx.EVT_BUTTON, self.pausa_timern)
 		self.knapp.SetLabel('Pause')
